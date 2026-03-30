@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FitLife – Entrena con Pasión</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --lime: #C8F400;
+      --black: #0a0a0a;
+      --dark: #111111;
+      --mid: #1c1c1c;
+      --card: #161616;
+      --white: #f5f5f5;
+      --gray: #aaaaaa;
+      --accent: #ff3c00;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #222;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: var(--lime);
+      letter-spacing: 3px;
+    }
+
+    .logo span { color: var(--white); }
+
+    nav a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: color .2s;
+    }
+    nav a:hover { color: var(--lime); }
+
+    .nav-links { display: flex; gap: 32px; }
+
+    .nav-cta {
+      background: var(--lime);
+      color: var(--black) !important;
+      padding: 10px 22px;
+      border-radius: 4px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      transition: opacity .2s !important;
+    }
+    .nav-cta:hover { opacity: .85; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 140px 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1400&q=80') center/cover no-repeat;
+      filter: brightness(.28);
+      z-index: 0;
+      transform: scale(1.03);
+      animation: bgZoom 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgZoom {
+      from { transform: scale(1.0); }
+      to   { transform: scale(1.06); }
+    }
+
+    .hero-tag {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--lime);
+      color: var(--black);
+      font-weight: 700;
+      font-size: .75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+      width: fit-content;
+      animation: fadeUp .7s ease both;
+    }
+
+    .hero-h1 {
+      position: relative;
+      z-index: 1;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 9vw, 9rem);
+      line-height: .95;
+      letter-spacing: 2px;
+      animation: fadeUp .8s .1s ease both;
+    }
+
+    .hero-h1 em {
+      font-style: normal;
+      color: var(--lime);
+    }
+
+    .hero-sub {
+      position: relative;
+      z-index: 1;
+      margin-top: 28px;
+      font-size: 1.15rem;
+      color: var(--gray);
+      max-width: 500px;
+      line-height: 1.7;
+      animation: fadeUp .8s .2s ease both;
+    }
+
+    .hero-actions {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 16px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+      animation: fadeUp .8s .3s ease both;
+    }
+
+    .btn-primary {
+      background: var(--lime);
+      color: var(--black);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      padding: 16px 36px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: transform .2s, opacity .2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-primary:hover { opacity: .88; transform: translateY(-2px); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 16px 36px;
+      border: 1.5px solid #444;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-outline:hover { border-color: var(--lime); color: var(--lime); }
+
+    .hero-stats {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 40px;
+      margin-top: 64px;
+      animation: fadeUp .8s .45s ease both;
+    }
+
+    .stat-item strong {
+      display: block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem;
+      color: var(--lime);
+      letter-spacing: 1px;
+    }
+    .stat-item span { font-size: .8rem; color: var(--gray); letter-spacing: 1px; text-transform: uppercase; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 100px 48px; }
+
+    .section-label {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      line-height: 1;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .section-sub {
+      color: var(--gray);
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 60px;
+    }
+
+    /* ── BENEFITS ── */
+    #benefits { background: var(--dark); }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 24px;
+    }
+
+    .benefit-card {
+      background: var(--card);
+      border: 1px solid #222;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform .3s, border-color .3s;
+      cursor: default;
+    }
+    .benefit-card:hover { transform: translateY(-6px); border-color: var(--lime); }
+
+    .benefit-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform .4s;
+    }
+    .benefit-card:hover .benefit-img { transform: scale(1.04); }
+
+    .benefit-body {
+      padding: 24px;
+    }
+
+    .benefit-icon {
+      width: 44px; height: 44px;
+      background: var(--lime);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--black);
+      margin-bottom: 14px;
+    }
+
+    .benefit-body h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .benefit-body p {
+      font-size: .88rem;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    /* ── CLASSES ── */
+    #classes { background: var(--black); }
+
+    .classes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .class-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      height: 360px;
+      cursor: pointer;
+    }
+
+    .class-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .5s;
+    }
+    .class-card:hover .class-img { transform: scale(1.08); }
+
+    .class-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.9) 0%, transparent 60%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 28px;
+      transition: background .3s;
+    }
+    .class-card:hover .class-overlay { background: linear-gradient(to top, rgba(0,0,0,.95) 20%, rgba(0,0,0,.3) 100%); }
+
+    .class-tag {
+      display: inline-block;
+      background: var(--lime);
+      color: var(--black);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 3px;
+      margin-bottom: 10px;
+      width: fit-content;
+    }
+
+    .class-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+
+    .class-meta {
+      display: flex;
+      gap: 16px;
+      margin-top: 10px;
+      font-size: .8rem;
+      color: var(--gray);
+    }
+    .class-meta span { display: flex; align-items: center; gap: 5px; }
+    .class-meta i { color: var(--lime); }
+
+    .class-desc {
+      font-size: .85rem;
+      color: #ccc;
+      line-height: 1.5;
+      margin-top: 10px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .4s;
+    }
+    .class-card:hover .class-desc { max-height: 80px; }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--mid);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #contact::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,244,0,.1), transparent 70%);
+      pointer-events: none;
+    }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .contact-img-wrap {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .contact-img-wrap img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      display: block;
+      filter: brightness(.85);
+    }
+
+    .contact-img-badge {
+      position: absolute;
+      bottom: 24px; left: 24px;
+      background: var(--lime);
+      color: var(--black);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 2px;
+      padding: 10px 18px;
+      border-radius: 6px;
+    }
+
+    .contact-info { display: flex; flex-direction: column; gap: 28px; }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      background: var(--card);
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 22px;
+      transition: border-color .3s, transform .3s;
+    }
+    .contact-item:hover { border-color: var(--lime); transform: translateX(6px); }
+
+    .contact-icon {
+      min-width: 48px; height: 48px;
+      background: var(--lime);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: var(--black);
+    }
+
+    .contact-item h4 {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 4px;
+    }
+
+    .contact-item p {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .contact-item small { font-size: .8rem; color: var(--gray); }
+
+    .btn-call {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--lime);
+      color: var(--black);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 18px 36px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity .2s, transform .2s;
+      letter-spacing: 1px;
+    }
+    .btn-call:hover { opacity: .88; transform: translateY(-3px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid #1e1e1e;
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer .logo { font-size: 1.5rem; }
+
+    .footer-socials { display: flex; gap: 16px; }
+
+    .footer-socials a {
+      width: 40px; height: 40px;
+      border: 1px solid #333;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray);
+      text-decoration: none;
+      transition: border-color .2s, color .2s;
+    }
+    .footer-socials a:hover { border-color: var(--lime); color: var(--lime); }
+
+    footer p { font-size: .8rem; color: #555; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      section { padding: 70px 20px; }
+      #hero { padding: 120px 20px 60px; }
+      .hero-stats { gap: 24px; }
+      .contact-inner { grid-template-columns: 1fr; }
+      .contact-img-wrap { display: none; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Fit<span>Life</span></div>
+  <div class="nav-links">
+    <a href="#benefits">Beneficios</a>
+    <a href="#classes">Clases</a>
+    <a href="#contact">Contacto</a>
+    <a href="tel:63453212" class="nav-cta"><i class="fa-solid fa-phone"></i> Llámanos</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-tag"><i class="fa-solid fa-bolt"></i> Tu cambio empieza hoy</div>
+  <h1 class="hero-h1">¿QUIERES<br>MEJORAR TU<br><em>CONDICIÓN</em><br>FÍSICA?</h1>
+  <p class="hero-sub">Entrena con clases dinámicas y divertidas diseñadas para transformar tu cuerpo y hacerte sentir mejor contigo mismo cada día.</p>
+  <div class="hero-actions">
+    <a href="#classes" class="btn-primary"><i class="fa-solid fa-dumbbell"></i> Ver Clases</a>
+    <a href="#contact" class="btn-outline"><i class="fa-solid fa-phone"></i> Contáctanos</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item"><strong>+500</strong><span>Miembros activos</span></div>
+    <div class="stat-item"><strong>15+</strong><span>Tipos de clases</span></div>
+    <div class="stat-item"><strong>100%</strong><span>Satisfacción</span></div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section id="benefits">
+  <div class="section-label"><i class="fa-solid fa-star"></i> Por qué elegirnos</div>
+  <h2 class="section-title">SIÉNTETE MEJOR<br>CONTIGO MISMO</h2>
+  <p class="section-sub">Cada entrenamiento está pensado para que disfrutes el proceso y alcances resultados reales.</p>
+
+  <div class="benefits-grid">
+    <div class="benefit-card reveal">
+      <img class="benefit-img" src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80" alt="Condición física" loading="lazy"/>
+      <div class="benefit-body">
+        <div class="benefit-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+        <h3>Mejora tu condición física</h3>
+        <p>Aumenta tu resistencia, fuerza y flexibilidad con rutinas progresivas adaptadas a tu nivel.</p>
+      </div>
+    </div>
+    <div class="benefit-card reveal">
+      <img class="benefit-img" src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80" alt="Clases dinámicas" loading="lazy"/>
+      <div class="benefit-body">
+        <div class="benefit-icon"><i class="fa-solid fa-fire"></i></div>
+        <h3>Clases dinámicas</h3>
+        <p>Rutinas variadas que rompen la monotonía y mantienen tu motivación al máximo en cada sesión.</p>
+      </div>
+    </div>
+    <div class="benefit-card reveal">
+      <img class="benefit-img" src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80" alt="Bienestar mental" loading="lazy"/>
+      <div class="benefit-body">
+        <div class="benefit-icon"><i class="fa-solid fa-brain"></i></div>
+        <h3>Bienestar mental</h3>
+        <p>El ejercicio libera endorfinas. Notarás más energía, menos estrés y una actitud positiva.</p>
+      </div>
+    </div>
+    <div class="benefit-card reveal">
+      <img class="benefit-img" src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&q=80" alt="Comunidad" loading="lazy"/>
+      <div class="benefit-body">
+        <div class="benefit-icon"><i class="fa-solid fa-people-group"></i></div>
+        <h3>Comunidad increíble</h3>
+        <p>Entrena rodeado de personas que te inspiran y te apoyan en cada paso del camino.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLASSES -->
+<section id="classes">
+  <div class="section-label"><i class="fa-solid fa-calendar-days"></i> Programa</div>
+  <h2 class="section-title">CLASES<br>DIVERTIDAS</h2>
+  <p class="section-sub">Descubre nuestra variedad de clases grupales diseñadas para que disfrutes entrenando.</p>
+
+  <div class="classes-grid">
+    <div class="class-card reveal">
+      <img class="class-img" src="https://images.unsplash.com/photo-1554284126-aa88f22d8b74?w=700&q=80" alt="CrossFit" loading="lazy"/>
+      <div class="class-overlay">
+        <div class="class-tag">Alta intensidad</div>
+        <h3><i class="fa-solid fa-dumbbell"></i> CrossFit</h3>
+        <div class="class-meta">
+          <span><i class="fa-solid fa-clock"></i> 60 min</span>
+          <span><i class="fa-solid fa-signal"></i> Todos los niveles</span>
+        </div>
+        <p class="class-desc">Entrena fuerza y resistencia con movimientos funcionales en un ambiente energético e inspirador.</p>
+      </div>
+    </div>
+    <div class="class-card reveal">
+      <img class="class-img" src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=700&q=80" alt="Yoga" loading="lazy"/>
+      <div class="class-overlay">
+        <div class="class-tag">Mente & cuerpo</div>
+        <h3><i class="fa-solid fa-leaf"></i> Yoga Flow</h3>
+        <div class="class-meta">
+          <span><i class="fa-solid fa-clock"></i> 50 min</span>
+          <span><i class="fa-solid fa-signal"></i> Principiante</span>
+        </div>
+        <p class="class-desc">Equilibra mente y cuerpo con posturas fluidas, respiración consciente y relajación profunda.</p>
+      </div>
+    </div>
+    <div class="class-card reveal">
+      <img class="class-img" src="https://images.unsplash.com/photo-1591258370814-01609b341790?w=700&q=80" alt="Spinning" loading="lazy"/>
+      <div class="class-overlay">
+        <div class="class-tag">Cardio</div>
+        <h3><i class="fa-solid fa-person-biking"></i> Spinning</h3>
+        <div class="class-meta">
+          <span><i class="fa-solid fa-clock"></i> 45 min</span>
+          <span><i class="fa-solid fa-signal"></i> Intermedio</span>
+        </div>
+        <p class="class-desc">Pedalea al ritmo de la música y quema calorías en una experiencia inmersiva y motivadora.</p>
+      </div>
+    </div>
+    <div class="class-card reveal">
+      <img class="class-img" src="https://images.unsplash.com/photo-1562771379-eafdca7a02f8?w=700&q=80" alt="Zumba" loading="lazy"/>
+      <div class="class-overlay">
+        <div class="class-tag">Baile & fitness</div>
+        <h3><i class="fa-solid fa-music"></i> Zumba</h3>
+        <div class="class-meta">
+          <span><i class="fa-solid fa-clock"></i> 55 min</span>
+          <span><i class="fa-solid fa-signal"></i> Todos</span>
+        </div>
+        <p class="class-desc">Combina baile y ejercicio en una fiesta de movimiento que no sentirás como rutina.</p>
+      </div>
+    </div>
+    <div class="class-card reveal">
+      <img class="class-img" src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=700&q=80" alt="Boxeo" loading="lazy"/>
+      <div class="class-overlay">
+        <div class="class-tag">Fuerza</div>
+        <h3><i class="fa-solid fa-hand-fist"></i> Box Fitness</h3>
+        <div class="class-meta">
+          <span><i class="fa-solid fa-clock"></i> 60 min</span>
+          <span><i class="fa-solid fa-signal"></i> Avanzado</span>
+        </div>
+        <p class="class-desc">Golpea, esquiva y fortalece todo tu cuerpo mientras liberas estrés y ganas confianza.</p>
+      </div>
+    </div>
+    <div class="class-card reveal">
+      <img class="class-img" src="https://images.unsplash.com/photo-1609899464383-80a4a9a7d73e?w=700&q=80" alt="Pilates" loading="lazy"/>
+      <div class="class-overlay">
+        <div class="class-tag">Tonificación</div>
+        <h3><i class="fa-solid fa-spa"></i> Pilates</h3>
+        <div class="class-meta">
+          <span><i class="fa-solid fa-clock"></i> 50 min</span>
+          <span><i class="fa-solid fa-signal"></i> Todos los niveles</span>
+        </div>
+        <p class="class-desc">Trabaja tu core, mejora tu postura y tonifica tu cuerpo con movimientos precisos y controlados.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-img-wrap reveal">
+      <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=700&q=80" alt="Trainer" loading="lazy"/>
+      <div class="contact-img-badge"><i class="fa-solid fa-award"></i> Entrenadores certificados</div>
+    </div>
+    <div class="contact-info reveal">
+      <div>
+        <div class="section-label"><i class="fa-solid fa-envelope"></i> Contáctanos</div>
+        <h2 class="section-title">¡EMPIEZA<br>HOY MISMO!</h2>
+        <p class="section-sub" style="margin-bottom:0">Estamos listos para acompañarte en tu transformación. No esperes más, da el primer paso.</p>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+        <div>
+          <h4>Teléfono</h4>
+          <p>63 45 3212</p>
+          <small>Lun – Sáb · 6:00 am – 10:00 pm</small>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fa-brands fa-whatsapp"></i></div>
+        <div>
+          <h4>WhatsApp</h4>
+          <p>+63 453 212</p>
+          <small>Respondemos en menos de 1 hora</small>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+        <div>
+          <h4>Encuéntranos</h4>
+          <p>Tu gimnasio más cercano</p>
+          <small>Abierto todos los días del año</small>
+        </div>
+      </div>
+
+      <a href="tel:63453212" class="btn-call">
+        <i class="fa-solid fa-phone-volume"></i> Llamar ahora · 63453212
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Fit<span>Life</span></div>
+  <p>© 2026 FitLife. Todos los derechos reservados.</p>
+  <div class="footer-socials">
+    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  revealEls.forEach(el => observer.observe(el));
+
+  // Staggered cards
+  document.querySelectorAll('.benefits-grid .benefit-card, .classes-grid .class-card').forEach((card, i) => {
+    card.style.transitionDelay = `${i * 0.07}s`;
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StepStyle | Calzado Online</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black: #0d0d0d;
+      --white: #f8f5f0;
+      --cream: #ede8df;
+      --accent: #c8a96e;
+      --accent2: #d94f3d;
+      --gray: #6b6b6b;
+      --card-bg: #ffffff;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(13,13,13,0.97);
+      backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 70px;
+      border-bottom: 1px solid rgba(200,169,110,0.25);
+    }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--accent); letter-spacing: 2px; }
+    .logo span { color: var(--white); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--white); text-decoration: none; font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta { background: var(--accent); color: var(--black) !important; padding: 0.5rem 1.2rem; border-radius: 2px; font-weight: 600 !important; }
+
+    .hero {
+      min-height: 100vh;
+      background: var(--black);
+      display: flex; align-items: center;
+      padding: 0 5%;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(200,169,110,0.15) 0%, transparent 65%);
+    }
+    .hero-bg-text {
+      position: absolute; right: -2%; top: 50%; transform: translateY(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(8rem, 18vw, 22rem); font-weight: 900;
+      color: rgba(255,255,255,0.03); line-height: 1;
+      pointer-events: none; user-select: none;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 600px; }
+    .hero-badge { display: inline-block; background: var(--accent); color: var(--black); font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; font-weight: 700; padding: 0.35rem 1rem; margin-bottom: 1.5rem; animation: fadeUp 0.8s ease both; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 6vw, 5.5rem); color: var(--white); line-height: 1.05; margin-bottom: 1.5rem; animation: fadeUp 0.8s 0.15s ease both; }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero p { color: rgba(248,245,240,0.65); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2.5rem; animation: fadeUp 0.8s 0.3s ease both; }
+    .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.8s 0.45s ease both; }
+
+    .btn-primary { background: var(--accent); color: var(--black); padding: 0.9rem 2.2rem; font-weight: 700; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; border: none; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.2s, box-shadow 0.2s; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(200,169,110,0.4); }
+    .btn-secondary { background: transparent; color: var(--white); padding: 0.9rem 2.2rem; font-weight: 500; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; border: 1px solid rgba(248,245,240,0.3); cursor: pointer; text-decoration: none; display: inline-block; transition: border-color 0.3s, color 0.3s; }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    .stats { background: var(--accent); padding: 1.5rem 5%; display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--black); }
+    .stat-label { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(13,13,13,0.7); font-weight: 600; }
+
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 900; line-height: 1.1; margin-bottom: 0.5rem; }
+    .section-sub { color: var(--gray); font-size: 0.95rem; letter-spacing: 0.5px; margin-bottom: 3rem; }
+    .accent-line { width: 50px; height: 3px; background: var(--accent); margin: 1rem 0; }
+
+    .categories { padding: 6rem 5%; background: var(--cream); }
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .cat-card { background: var(--black); padding: 2.5rem 2rem; text-align: center; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; }
+    .cat-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: var(--accent); transform: scaleX(0); transition: transform 0.3s; }
+    .cat-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
+    .cat-card:hover::after { transform: scaleX(1); }
+    .cat-icon { font-size: 2.8rem; margin-bottom: 1rem; }
+    .cat-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); margin-bottom: 0.4rem; }
+    .cat-desc { font-size: 0.8rem; color: rgba(248,245,240,0.5); letter-spacing: 1px; }
+
+    .products { padding: 6rem 5%; background: var(--white); }
+    .products-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem; }
+    .filter-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .filter-tab { padding: 0.4rem 1.1rem; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; border: 1.5px solid rgba(13,13,13,0.2); background: transparent; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+    .filter-tab.active, .filter-tab:hover { background: var(--black); color: var(--white); border-color: var(--black); }
+
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 2rem; }
+    .product-card { background: var(--card-bg); border: 1px solid rgba(13,13,13,0.07); overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; position: relative; }
+    .product-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+    .product-img { width: 100%; height: 230px; object-fit: cover; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 5rem; transition: transform 0.4s; }
+    .product-card:hover .product-img { transform: scale(1.04); }
+    .badge { position: absolute; top: 1rem; left: 1rem; padding: 0.25rem 0.7rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+    .badge-new { background: var(--black); color: var(--white); }
+    .badge-sale { background: var(--accent2); color: var(--white); }
+    .badge-hot { background: var(--accent); color: var(--black); }
+    .product-info { padding: 1.4rem; }
+    .product-category { font-size: 0.7rem; color: var(--gray); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .product-name { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .product-sizes { font-size: 0.78rem; color: var(--gray); margin-bottom: 0.8rem; }
+    .product-sizes span { display: inline-block; border: 1px solid rgba(13,13,13,0.2); padding: 0.15rem 0.45rem; margin-right: 0.3rem; margin-bottom: 0.3rem; font-size: 0.72rem; cursor: pointer; transition: all 0.2s; }
+    .product-sizes span:hover { background: var(--black); color: var(--white); border-color: var(--black); }
+    .product-price { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1rem; }
+    .price-current { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; color: var(--black); }
+    .price-old { font-size: 0.9rem; color: var(--gray); text-decoration: line-through; }
+    .price-discount { background: var(--accent2); color: white; font-size: 0.7rem; font-weight: 700; padding: 0.1rem 0.4rem; }
+    .btn-add { width: 100%; background: var(--black); color: var(--white); border: none; padding: 0.8rem; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: background 0.3s; }
+    .btn-add:hover { background: var(--accent); color: var(--black); }
+
+    .offers { padding: 6rem 5%; background: var(--black); }
+    .offers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .offer-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(200,169,110,0.2); padding: 2.5rem; position: relative; overflow: hidden; transition: transform 0.3s, border-color 0.3s; }
+    .offer-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+    .offer-card::before { content: ''; position: absolute; top: 0; right: 0; width: 80px; height: 80px; background: var(--accent); opacity: 0.08; clip-path: circle(60% at 100% 0%); }
+    .offer-pct { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 0.5rem; }
+    .offer-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--white); margin-bottom: 0.5rem; }
+    .offer-desc { font-size: 0.85rem; color: rgba(248,245,240,0.55); line-height: 1.6; margin-bottom: 1.5rem; }
+    .offer-tag { display: inline-block; border: 1px solid rgba(200,169,110,0.4); color: var(--accent); font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; padding: 0.3rem 0.8rem; }
+
+    .location { padding: 6rem 5%; background: var(--cream); }
+    .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 3rem; }
+    .info-item { display: flex; gap: 1.2rem; align-items: flex-start; margin-bottom: 2rem; }
+    .info-icon { width: 44px; height: 44px; background: var(--black); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .info-label { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gray); margin-bottom: 0.3rem; font-weight: 600; }
+    .info-value { font-size: 0.95rem; font-weight: 500; line-height: 1.5; }
+    .map-placeholder { background: var(--black); border-radius: 2px; height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--white); font-size: 3rem; gap: 1rem; position: relative; overflow: hidden; }
+    .map-placeholder p { font-size: 0.85rem; color: rgba(248,245,240,0.5); letter-spacing: 1px; }
+    .map-dot { width: 16px; height: 16px; background: var(--accent2); border-radius: 50%; position: relative; }
+    .map-dot::after { content: ''; position: absolute; inset: -6px; border: 2px solid rgba(217,79,61,0.4); border-radius: 50%; animation: pulse 2s infinite; }
+
+    footer { background: var(--black); color: rgba(248,245,240,0.6); padding: 4rem 5% 2rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--accent); margin-bottom: 1rem; }
+    .footer-logo span { color: var(--white); }
+    .footer-desc { font-size: 0.85rem; line-height: 1.7; margin-bottom: 1.5rem; }
+    .footer-h { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--white); font-weight: 700; margin-bottom: 1rem; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.6rem; }
+    .footer-links a { color: rgba(248,245,240,0.6); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; display: flex; justify-content: space-between; font-size: 0.8rem; flex-wrap: wrap; gap: 1rem; }
+
+    .whatsapp-float { position: fixed; bottom: 2rem; right: 2rem; width: 60px; height: 60px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; text-decoration: none; box-shadow: 0 6px 25px rgba(37,211,102,0.45); z-index: 999; transition: transform 0.3s, box-shadow 0.3s; animation: bounceIn 1s 1s ease both; }
+    .whatsapp-float:hover { transform: scale(1.12); box-shadow: 0 10px 35px rgba(37,211,102,0.6); }
+    .whatsapp-float::after { content: '¡Escríbenos!'; position: absolute; right: 70px; background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 600; padding: 0.4rem 0.8rem; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .whatsapp-float:hover::after { opacity: 1; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0; } }
+    @keyframes bounceIn { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: scale(1); } }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .location-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; }
+      .products-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Step<span>Style</span></div>
+  <ul class="nav-links">
+    <li><a href="#categorias">Categorías</a></li>
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#ofertas">Ofertas</a></li>
+    <li><a href="#ubicacion">Ubicación</a></li>
+    <li><a href="https://wa.me/59169754373" target="_blank" class="nav-cta">WhatsApp</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg-text">STEP</div>
+  <div class="hero-content">
+    <div class="hero-badge">✦ Nueva Colección 2025</div>
+    <h1>Camina con <em>estilo,</em><br>vive con confort.</h1>
+    <p>Calzado de calidad para toda la familia. Casuales, deportivos y de vestir disponibles en nuestra tienda física y online.</p>
+    <div class="hero-buttons">
+      <a href="#productos" class="btn-primary">Ver Catálogo</a>
+      <a href="#ofertas" class="btn-secondary">Ver Ofertas</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Modelos</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Géneros</div></div>
+  <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Calidad</div></div>
+  <div class="stat"><div class="stat-num">5★</div><div class="stat-label">Valoración</div></div>
+</div>
+
+<section class="categories" id="categorias">
+  <div class="section-title">Explora por Categoría</div>
+  <div class="accent-line"></div>
+  <div class="section-sub">Encuentra exactamente lo que buscas</div>
+  <div class="cat-grid">
+    <div class="cat-card"><div class="cat-icon">👗</div><div class="cat-name">Dama</div><div class="cat-desc">Elegancia & Moda</div></div>
+    <div class="cat-card"><div class="cat-icon">👔</div><div class="cat-name">Caballero</div><div class="cat-desc">Estilo & Confort</div></div>
+    <div class="cat-card"><div class="cat-icon">🧒</div><div class="cat-name">Niños</div><div class="cat-desc">Diversión & Durabilidad</div></div>
+    <div class="cat-card"><div class="cat-icon">👟</div><div class="cat-name">Deportivos</div><div class="cat-desc">Rendimiento & Energía</div></div>
+    <div class="cat-card"><div class="cat-icon">👠</div><div class="cat-name">Vestir</div><div class="cat-desc">Sofisticación</div></div>
+    <div class="cat-card"><div class="cat-icon">🥿</div><div class="cat-name">Casuales</div><div class="cat-desc">Relajado & Versátil</div></div>
+  </div>
+</section>
+
+<section class="products" id="productos">
+  <div class="products-header">
+    <div>
+      <div class="section-title">Nuestros Productos</div>
+      <div class="accent-line"></div>
+      <div class="section-sub">Calidad garantizada en cada paso</div>
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active">Todos</button>
+      <button class="filter-tab">Dama</button>
+      <button class="filter-tab">Caballero</button>
+      <button class="filter-tab">Niños</button>
+    </div>
+  </div>
+  <div class="products-grid">
+
+    <div class="product-card">
+      <div class="product-img">👟</div>
+      <span class="badge badge-new">Nuevo</span>
+      <div class="product-info">
+        <div class="product-category">Deportivo · Caballero</div>
+        <div class="product-name">Runner Pro X</div>
+        <div class="product-sizes">Tallas: <span>38</span><span>39</span><span>40</span><span>41</span><span>42</span><span>43</span></div>
+        <div class="product-price"><span class="price-current">Bs. 350</span></div>
+        <button class="btn-add" onclick="window.open('https://wa.me/59169754373?text=Hola! Me interesa el Runner Pro X','_blank')">Comprar por WhatsApp</button>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">👠</div>
+      <span class="badge badge-sale">-20%</span>
+      <div class="product-info">
+        <div class="product-category">Vestir · Dama</div>
+        <div class="product-name">Stiletto Noir</div>
+        <div class="product-sizes">Tallas: <span>35</span><span>36</span><span>37</span><span>38</span><span>39</span></div>
+        <div class="product-price"><span class="price-current">Bs. 280</span><span class="price-old">Bs. 350</span><span class="price-discount">-20%</span></div>
+        <button class="btn-add" onclick="window.open('https://wa.me/59169754373?text=Hola! Me interesa el Stiletto Noir','_blank')">Comprar por WhatsApp</button>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">🥾</div>
+      <span class="badge badge-hot">Popular</span>
+      <div class="product-info">
+        <div class="product-category">Casual · Caballero</div>
+        <div class="product-name">Urban Boot Classic</div>
+        <div class="product-sizes">Tallas: <span>39</span><span>40</span><span>41</span><span>42</span><span>43</span></div>
+        <div class="product-price"><span class="price-current">Bs. 420</span></div>
+        <button class="btn-add" onclick="window.open('https://wa.me/59169754373?text=Hola! Me interesa el Urban Boot Classic','_blank')">Comprar por WhatsApp</button>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">👡</div>
+      <span class="badge badge-sale">-15%</span>
+      <div class="product-info">
+        <div class="product-category">Casual · Dama</div>
+        <div class="product-name">Sandalia Brisa</div>
+        <div class="product-sizes">Tallas: <span>35</span><span>36</span><span>37</span><span>38</span></div>
+        <div class="product-price"><span class="price-current">Bs. 170</span><span class="price-old">Bs. 200</span><span class="price-discount">-15%</span></div>
+        <button class="btn-add" onclick="window.open('https://wa.me/59169754373?text=Hola! Me interesa la Sandalia Brisa','_blank')">Comprar por WhatsApp</button>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">👟</div>
+      <span class="badge badge-new">Nuevo</span>

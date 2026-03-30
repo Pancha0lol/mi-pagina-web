@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎂 Tortas Delicia — Artesanales con Amor</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --cream: #FFF8F0;
+    --rose: #E8546A;
+    --rose-dark: #C23A52;
+    --caramel: #D4874E;
+    --choco: #3B1F14;
+    --gold: #F0C060;
+    --mint: #7EC8A4;
+    --lavender: #B89FD8;
+    --sky: #7ABFDF;
+    --soft: #FDE8EE;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--cream);
+    font-family: 'Lato', sans-serif;
+    color: var(--choco);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: linear-gradient(160deg, #ffe4ec 0%, #fff0e0 50%, #fce4ff 100%);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(232,84,106,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(176,143,210,0.12) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* floating blobs */
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.18;
+    animation: floatBlob 8s ease-in-out infinite;
+  }
+  .blob-1 { width: 320px; height: 320px; background: var(--rose); top: -60px; left: -80px; animation-delay: 0s; }
+  .blob-2 { width: 200px; height: 200px; background: var(--gold); bottom: 40px; right: -50px; animation-delay: 3s; }
+  .blob-3 { width: 140px; height: 140px; background: var(--mint); top: 55%; left: 5%; animation-delay: 1.5s; }
+
+  @keyframes floatBlob {
+    0%,100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-25px) scale(1.05); }
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.7);
+    border: 1.5px solid var(--rose);
+    border-radius: 50px;
+    padding: 6px 18px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--rose-dark);
+    margin-bottom: 24px;
+    backdrop-filter: blur(6px);
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--choco);
+    margin-bottom: 12px;
+  }
+
+  .hero h1 span { color: var(--rose); font-style: italic; }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 300;
+    color: #7a4e3a;
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--rose);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 15px 34px;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 8px 28px rgba(232,84,106,0.4);
+    transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
+  }
+  .hero-cta:hover {
+    background: var(--rose-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 14px 36px rgba(232,84,106,0.5);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+    color: var(--rose);
+    font-size: 1.4rem;
+    opacity: 0.7;
+  }
+  @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+  /* ── SECTION WRAPPER ── */
+  section { padding: 90px 24px; }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .section-title h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    color: var(--choco);
+  }
+  .section-title h2 em { color: var(--rose); font-style: italic; }
+  .section-title p {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #8a5c48;
+    font-weight: 300;
+  }
+  .divider {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--rose), var(--gold));
+    border-radius: 4px;
+    margin: 14px auto 0;
+  }
+
+  /* ── SABORES ── */
+  #sabores { background: #fff; }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .card {
+    border-radius: 24px;
+    overflow: hidden;
+    background: var(--cream);
+    box-shadow: 0 6px 24px rgba(59,31,20,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+  }
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(59,31,20,0.15);
+  }
+
+  .card-img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* emoji placeholder when no real image */
+  .card-emoji-img {
+    width: 100%;
+    height: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+  }
+
+  .card-body { padding: 22px; }
+
+  .card-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 50px;
+    margin-bottom: 10px;
+  }
+
+  .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--choco);
+  }
+
+  .card p {
+    font-size: 0.9rem;
+    color: #7a5244;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--rose);
+  }
+  .price span { font-size: 0.85rem; font-weight: 400; color: #a07060; }
+
+  .order-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--choco);
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 9px 18px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .order-btn:hover { background: var(--rose); transform: scale(1.04); }
+
+  /* ── TAMAÑOS ── */
+  #tamanos { background: linear-gradient(135deg, #fff5f8, #fff8f0); }
+
+  .sizes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .size-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px 24px;
+    text-align: center;
+    box-shadow: 0 4px 18px rgba(59,31,20,0.07);
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 2px solid transparent;
+  }
+  .size-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 34px rgba(59,31,20,0.12);
+    border-color: var(--rose);
+  }
+
+  .size-icon { font-size: 3.2rem; margin-bottom: 14px; display: block; }
+
+  .size-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .size-card .portions {
+    font-size: 0.82rem;
+    color: #a07060;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .size-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--rose);
+    margin-bottom: 4px;
+  }
+  .size-price-note { font-size: 0.78rem; color: #b0806a; }
+
+  .best-value {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--choco);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 50px;
+    white-space: nowrap;
+  }
+
+  /* ── COLORES ── */
+  #colores { background: #fff; }
+
+  .colors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .color-chip {
+    border-radius: 18px;
+    padding: 24px 16px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    transition: transform 0.25s, box-shadow 0.25s;
+    cursor: default;
+  }
+  .color-chip:hover { transform: scale(1.06); box-shadow: 0 10px 28px rgba(0,0,0,0.14); }
+
+  .color-chip .dot {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  .color-chip span {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--choco);
+  }
+  .color-chip small { display: block; font-size: 0.7rem; color: #a07060; margin-top: 2px; }
+
+  /* ── PROCESO ── */
+  #proceso { background: linear-gradient(160deg, #3b1f14, #6b3020); color: #fff; }
+  #proceso .section-title h2 { color: #fff; }
+  #proceso .section-title h2 em { color: var(--gold); }
+  #proceso .section-title p { color: #d4a898; }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 32px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .step {
+    text-align: center;
+    padding: 32px 20px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: background 0.3s;
+  }
+  .step:hover { background: rgba(255,255,255,0.11); }
+
+  .step-number {
+    width: 52px; height: 52px;
+    background: var(--gold);
+    color: var(--choco);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+  }
+
+  .step-icon { font-size: 2rem; margin-bottom: 10px; display: block; }
+  .step h4 { font-family: 'Playfair Display', serif; font-size: 1.05rem; margin-bottom: 6px; }
+  .step p { font-size: 0.85rem; color: #c4907a; line-height: 1.6; }
+
+  /* ── PEDIDO ── */
+  #pedido {
+    background: linear-gradient(135deg, var(--soft), #fdf0ff);
+    text-align: center;
+  }
+
+  .contact-card {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 28px;
+    padding: 50px 40px;
+    box-shadow: 0 12px 40px rgba(232,84,106,0.12);
+  }
+
+  .contact-card .phone-icon {
+    font-size: 3.5rem;
+    color: var(--rose);
+    margin-bottom: 14px;
+    animation: pulse 2.5s infinite;
+  }
+  @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.1);} }
+
+  .contact-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    margin-bottom: 8px;
+  }
+
+  .contact-card p { color: #8a5c48; margin-bottom: 28px; line-height: 1.7; }
+
+  .phone-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.6rem;
+    font-weight: 900;
+    color: var(--rose);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .wa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #25D366;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 16px 38px;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(37,211,102,0.35);
+    transition: transform 0.25s, box-shadow 0.25s;
+    margin-right: 12px;
+  }
+  .wa-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(37,211,102,0.45); }
+
+  .info-chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--soft);
+    color: var(--rose-dark);
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 50px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--choco);
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 30px 24px;
+    font-size: 0.85rem;
+  }
+  footer strong { color: var(--gold); }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 36px;
+    background: rgba(255,248,240,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(232,84,106,0.12);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--choco);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-logo span { color: var(--rose); }
+
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--choco);
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--rose); }
+
+  .nav-cta {
+    background: var(--rose);
+    color: #fff !important;
+    padding: 8px 20px;
+    border-radius: 50px;
+  }
+  .nav-cta:hover { background: var(--rose-dark) !important; color: #fff !important; }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .contact-card { padding: 36px 22px; }
+    .phone-number { font-size: 2rem; }
+  }
+
+  /* ── ENTRANCE ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">🎂 <span>Tortas</span> Delicia</div>
+  <ul class="nav-links">
+    <li><a href="#sabores"><i class="fa fa-cake-candles"></i> Sabores</a></li>
+    <li><a href="#tamanos"><i class="fa fa-ruler"></i> Tamaños</a></li>
+    <li><a href="#colores"><i class="fa fa-palette"></i> Colores</a></li>
+    <li><a href="#pedido" class="nav-cta"><i class="fa fa-phone"></i> Pedir Ahora</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <div class="hero-badge"><i class="fa fa-star"></i> Hechas con Amor Artesanal</div>
+  <h1>Tortas que<br><span>Enamoran</span></h1>
+  <p class="hero-sub">Sabores únicos, colores vibrantes y tamaños al alcance de tu bolsillo. Cada torta es una obra de arte.</p>
+  <a href="#pedido" class="hero-cta"><i class="fa-brands fa-whatsapp"></i> Hacer mi Pedido</a>
+
+  <div class="scroll-hint"><i class="fa fa-chevron-down"></i></div>
+</section>
+
+<!-- SABORES -->
+<section id="sabores">
+  <div class="section-title fade-up">
+    <h2>Nuestros <em>Sabores</em></h2>
+    <p>Cada bocado es una experiencia irresistible</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="cards-grid">
+
+    <div class="card fade-up">
+      <img class="card-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Chocolate_cake_-_Flourless_%28Gluten_Free%29.jpg/1280px-Chocolate_cake_-_Flourless_%28Gluten_Free%29.jpg" alt="Torta de Chocolate Intenso" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1624353365286-3f8d62daad51?w=600&q=80'">
+      <div class="card-body">
+        <div class="card-tag" style="background:#f5e4d0;color:#7b4020;"><i class="fa fa-heart"></i> Favorita</div>
+        <h3>Chocolate Intenso</h3>
+        <p>Bizcocho húmedo de cacao puro con ganache de chocolate amargo y decoración de virutas.</p>
+        <div class="card-footer">
+          <div class="price">Bs. 75 <span>/ porción</span></div>
+          <a href="https://wa.me/59172861789" target="_blank" class="order-btn"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card fade-up">
+      <img class="card-img" src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=80" alt="Torta de Fresas con Crema" loading="lazy">
+      <div class="card-body">
+        <div class="card-tag" style="background:#ffe4f0;color:#c23a52;"><i class="fa fa-leaf"></i> Frutal</div>
+        <h3>Fresas con Crema</h3>
+        <p>Esponjoso bizcocho de vainilla con chantilly, fresas frescas y coulis de frambuesa.</p>
+        <div class="card-footer">
+          <div class="price">Bs. 80 <span>/ porción</span></div>
+          <a href="https://wa.me/59172861789" target="_blank" class="order-btn"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card fade-up">
+      <img class="card-img" src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&q=80" alt="Torta de Limón y Merengue" loading="lazy">
+      <div class="card-body">
+        <div class="card-tag" style="background:#fff9d6;color:#b08010;"><i class="fa fa-sun"></i> Refrescante</div>
+        <h3>Limón & Merengue</h3>
+        <p>Cremosa cuajada de limón sobre base crujiente, cubierta con merengue tostado.</p>
+        <div class="card-footer">
+          <div class="price">Bs. 70 <span>/ porción</span></div>
+          <a href="https://wa.me/59172861789" target="_blank" class="order-btn"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card fade-up">
+      <img class="card-img" src="https://images.unsplash.com/photo-1557925923-33b27f7a5cb3?w=600&q=80" alt="Torta de Arándano y Lavanda" loading="lazy">
+      <div class="card-body">
+        <div class="card-tag" style="background:#f0e4ff;color:#7b40b0;"><i class="fa fa-wand-magic-sparkles"></i> Especial</div>
+        <h3>Arándano & Lavanda</h3>
+        <p>Bizcocho de lavanda con crema diplomática de arándanos y glaseado violeta brillante.</p>
+        <div class="card-footer">
+          <div class="price">Bs. 90 <span>/ porción</span></div>
+          <a href="https://wa.me/59172861789" target="_blank" class="order-btn"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card fade-up">
+      <img class="card-img" src="https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=600&q=80" alt="Torta de Zanahoria y Canela" loading="lazy">
+      <div class="card-body">
+        <div class="card-tag" style="background:#fff0e0;color:#b06020;"><i class="fa fa-seedling"></i> Natural</div>
+        <h3>Zanahoria & Canela</h3>
+        <p>Húmedo bizcocho de zanahoria con nueces, cubierto de frosting de queso crema y canela.</p>
+        <div class="card-footer">
+          <div class="price">Bs. 65 <span>/ porción</span></div>
+          <a href="https://wa.me/59172861789" target="_blank" class="order-btn"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card fade-up">
+      <img class="card-img" src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=600&q=80" alt="Torta de Vainilla Clásica" loading="lazy">
+      <div class="card-body">
+        <div class="card-tag" style="background:#e4f4ff;color:#2080b0;"><i class="fa fa-star"></i> Clásica</div>
+        <h3>Vainilla Clásica</h3>
+        <p>El clásico que nunca falla. Bizcocho suave de vainilla bourbon con buttercream sedoso.</p>
+        <div class="card-footer">
+          <div class="price">Bs. 60 <span>/ porción</span></div>
+          <a href="https://wa.me/59172861789" target="_blank" class="order-btn"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TAMAÑOS -->
+<section id="tamanos">
+  <div class="section-title fade-up">
+    <h2>Tamaños para <em>Todos</em></h2>
+    <p>Precios accesibles según tu reunión</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="sizes-grid">
+
+    <div class="size-card fade-up">
+      <img src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=300&q=80" alt="Torta Mini" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin:0 auto 14px;display:block;box-shadow:0 4px 14px rgba(0,0,0,0.15);">
+      <h3>Mini</h3>
+      <div class="portions"><i class="fa fa-users"></i> 4 – 6 porciones</div>
+      <div class="size-price">Bs. 45</div>
+      <div class="size-price-note">Ideal para parejas o familia pequeña</div>
+    </div>
+
+    <div class="size-card fade-up">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&q=80" alt="Torta Pequeña" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin:0 auto 14px;display:block;box-shadow:0 4px 14px rgba(0,0,0,0.15);">
+      <h3>Pequeña</h3>
+      <div class="portions"><i class="fa fa-users"></i> 8 – 12 porciones</div>
+      <div class="size-price">Bs. 60</div>
+      <div class="size-price-note">Perfecta para reuniones íntimas</div>
+    </div>
+
+    <div class="size-card fade-up" style="border-color:var(--rose);">
+      <div class="best-value"><i class="fa fa-star"></i> Más Pedida</div>
+      <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&q=80" alt="Torta Mediana" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin:0 auto 14px;display:block;box-shadow:0 4px 14px rgba(232,84,106,0.3);">
+      <h3>Mediana</h3>
+      <div class="portions"><i class="fa fa-users"></i> 15 – 20 porciones</div>
+      <div class="size-price">Bs. 75</div>
+      <div class="size-price-note">La favorita para cumpleaños</div>
+    </div>
+
+    <div class="size-card fade-up">
+      <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=300&q=80" alt="Torta Grande" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin:0 auto 14px;display:block;box-shadow:0 4px 14px rgba(0,0,0,0.15);">
+      <h3>Grande</h3>
+      <div class="portions"><i class="fa fa-users"></i> 25 – 35 porciones</div>
+      <div class="size-price">Bs. 88</div>
+      <div class="size-price-note">Bodas, empresas y eventos</div>
+    </div>
+
+    <div class="size-card fade-up">
+      <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=300&q=80" alt="Torta XXL" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin:0 auto 14px;display:block;box-shadow:0 4px 14px rgba(0,0,0,0.15);">
+      <h3>XXL Premium</h3>
+      <div class="portions"><i class="fa fa-users"></i> 40+ porciones</div>
+      <div class="size-price">Bs. 99</div>
+      <div class="size-price-note">Eventos especiales y fiestas grandes</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COLORES -->
+<section id="colores">
+  <div class="section-title fade-up">
+    <h2>Paleta de <em>Colores</em></h2>
+    <p>Personaliza tu torta con el color que desees</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="colors-grid">
+    <div class="color-chip fade-up" style="background:#fff5f8;">
+      <div class="dot" style="background:linear-gradient(135deg,#ff8fa3,#e8546a);"></div>
+      <span>Rosa Pétalo</span>
+      <small>Romántico ✨</small>
+    </div>
+    <div class="color-chip fade-up" style="background:#fff5f0;">
+      <div class="dot" style="background:linear-gradient(135deg,#ff9650,#e06820);"></div>
+      <span>Naranja Vibrante</span>
+      <small>Alegre 🎉</small>
+    </div>
+    <div class="color-chip fade-up" style="background:#f5fff5;">
+      <div class="dot" style="background:linear-gradient(135deg,#7ec8a4,#2a9060);"></div>
+      <span>Verde Menta</span>
+      <small>Fresco 🌿</small>
+    </div>
+    <div class="color-chip fade-up" style="background:#f0f5ff;">
+      <div class="dot" style="background:linear-gradient(135deg,#7ab8f0,#2060c8);"></div>
+      <span>Azul Cielo</span>
+      <small>Elegante 💙</small>
+    </div>
+    <div class="color-chip fade-up" style="background:#fdf5ff;">
+      <div class="dot" style="background:linear-gradient(135deg,#c89fe0,#8040c0);"></div>
+      <span>Lavanda</span>
+      <small>Mágico 🔮</small>
+    </div>
+    <div class="color-chip fade-up" style="background:#fffcf0;">
+      <div class="dot" style="background:linear-gradient(135deg,#f8d870,#d0a020);"></div>
+      <span>Dorado</span>
+      <small>Lujoso 👑</small>
+    </div>
+    <div class="color-chip fade-up" style="background:#fff5f5;">
+      <div class="dot" style="background:linear-gradient(135deg,#ff6080,#c01840);"></div>
+      <span>Rojo Pasión</span>
+      <small>Intenso ❤️</small>
+    </div>
+    <div class="color-chip fade-up" style="background:#f5f0ff;">
+      <div class="dot" style="background:linear-gradient(135deg,#a0a8f8,#4040d8);"></div>
+      <span>Índigo</span>
+      <small>Sofisticado 💜</small>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso">
+  <div class="section-title fade-up">
+    <h2>¿Cómo <em>Pedimos</em>?</h2>
+    <p>Proceso simple, resultado extraordinario</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="steps">
+    <div class="step fade-up">
+      <div class="step-number">1</div>
+      <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=200&q=80" alt="Contactar" style="width:64px;height:64px;border-radius:50%;object-fit:cover;margin:0 auto 10px;display:block;border:3px solid rgba(255,255,255,0.3);">
+      <h4>Contáctanos</h4>
+      <p>Escríbenos por WhatsApp al 72861789 con tu idea o consulta.</p>
+    </div>
+    <div class="step fade-up">
+      <div class="step-number">2</div>
+      <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=200&q=80" alt="Personalizar" style="width:64px;height:64px;border-radius:50%;object-fit:cover;margin:0 auto 10px;display:block;border:3px solid rgba(255,255,255,0.3);">
+      <h4>Personaliza</h4>
+      <p>Elige sabor, tamaño, colores y diseño. Te asesoramos sin costo.</p>
+    </div>
+    <div class="step fade-up">
+      <div class="step-number">3</div>
+      <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=200&q=80" alt="Confirmar" style="width:64px;height:64px;border-radius:50%;object-fit:cover;margin:0 auto 10px;display:block;border:3px solid rgba(255,255,255,0.3);">
+      <h4>Confirma</h4>
+      <p>Acuerda el precio, fecha de entrega y realiza el pago anticipado.</p>
+    </div>
+    <div class="step fade-up">
+      <div class="step-number">4</div>
+      <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=200&q=80" alt="Disfrutar" style="width:64px;height:64px;border-radius:50%;object-fit:cover;margin:0 auto 10px;display:block;border:3px solid rgba(255,255,255,0.3);">
+      <h4>¡Disfruta!</h4>
+      <p>Recibe tu torta fresca y perfecta. ¡Lista para sorprender!</p>
+    </div>
+  </div>
+</section>
+
+<!-- PEDIDO -->
+<section id="pedido">
+  <div class="section-title fade-up">
+    <h2>Haz tu <em>Pedido</em></h2>
+    <p>¡Estamos listos para endulzar tu día!</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="contact-card fade-up">
+    <div class="phone-icon"><i class="fa-brands fa-whatsapp"></i></div>
+    <h3>¡Contáctanos Ahora!</h3>
+    <p>Pedidos con <strong>48 horas de anticipación</strong>. Hacemos entregas a domicilio y recogida en tienda. ¡Pregunta sin compromiso!</p>
+
+    <div class="phone-number">
+      <i class="fa fa-phone" style="font-size:1.8rem;"></i>
+      72861789
+    </div>
+
+    <a href="https://wa.me/59172861789?text=Hola!%20Quiero%20pedir%20una%20torta%20%F0%9F%8E%82" target="_blank" class="wa-btn">
+      <i class="fa-brands fa-whatsapp" style="font-size:1.2rem;"></i> Escribir por WhatsApp
+    </a>
+
+    <div class="info-chips">
+      <div class="chip"><i class="fa fa-truck"></i> Delivery disponible</div>
+      <div class="chip"><i class="fa fa-clock"></i> 48h anticipación</div>
+      <div class="chip"><i class="fa fa-shield-halved"></i> Ingredientes frescos</div>
+      <div class="chip"><i class="fa fa-hand-holding-heart"></i> Hecho con amor</div>
+      <div class="chip"><i class="fa fa-wallet"></i> Al alcance del bolsillo</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>🎂 <strong>Tortas Delicia</strong> — Hechas con amor artesanal &nbsp;|&nbsp; 📞 <strong>72861789</strong></p>
+  <p style="margin-top:8px;font-size:0.78rem;opacity:0.6;">© 2025 Tortas Delicia · Todos los derechos reservados</p>
+</footer>
+
+<script>
+  // Intersection Observer for fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Smooth active nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--rose)' : '';
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Comisiones abiertas de dibujo artístico digital. Pedidos personalizados con estilo único. ¡Escríbeme por WhatsApp al 72967456!">
+    <title>PincelDigital • Comisiones Abiertas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;600&amp;display=swap');
+        
+        :root {
+            --tw-color-primary: #a855f7;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .title-font {
+            font-family: 'Playfair Display', sans-serif;
+        }
+
+        /* Fondo artístico animado */
+        .hero-bg {
+            background: radial-gradient(circle at 50% 50%, #1e1233 0%, #0a0818 70%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(168, 85, 247, 0.08) 50%, transparent 70%);
+            background-size: 200% 200%;
+            animation: brushStroke 15s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes brushStroke {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        
+        /* Partículas artísticas (canvas) */
+        #particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Animación de texto "dibujado" */
+        .draw-text {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .draw-text::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 4px;
+            background: linear-gradient(to right, #a855f7, #ec4899);
+            animation: drawLine 2s ease-in-out forwards;
+            animation-delay: 800ms;
+        }
+        
+        @keyframes drawLine {
+            to { width: 100%; }
+        }
+        
+        /* Hover artístico en tarjetas */
+        .art-card {
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .art-card:hover {
+            transform: scale(1.05) rotate(1deg);
+            box-shadow: 0 25px 50px -12px rgb(168 85 247);
+        }
+        
+        /* Botón WhatsApp flotante */
+        .wa-float {
+            animation: waPulse 2s infinite;
+        }
+        
+        @keyframes waPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+        }
+        
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Imágenes con borde artístico */
+        .real-image {
+            border: 6px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-[#0a0818] text-white overflow-x-hidden">
+    <!-- NAVEGACIÓN -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0a0818]/90 backdrop-blur-lg border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <!-- Logo con imagen real -->
+                <img src="https://picsum.photos/id/29/60/60" alt="PincelDigital Logo" 
+                     class="w-10 h-10 rounded-2xl shadow-lg shadow-purple-500/50 object-cover">
+                <h1 class="title-font text-3xl font-bold tracking-tighter">PincelDigital</h1>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#inicio" class="hover:text-purple-400 flex items-center gap-1">
+                    <i class="fas fa-home"></i> Inicio
+                </a>
+                <a href="#servicios" class="hover:text-purple-400 flex items-center gap-1">
+                    <i class="fas fa-palette"></i> Servicios
+                </a>
+                <a href="#portfolio" class="hover:text-purple-400 flex items-center gap-1">
+                    <i class="fas fa-images"></i> Portafolio
+                </a>
+                <a href="#proceso" class="hover:text-purple-400 flex items-center gap-1">
+                    <i class="fas fa-lightbulb"></i> Cómo funciona
+                </a>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div class="px-5 py-2 bg-white/10 hover:bg-white/20 rounded-3xl text-sm font-semibold flex items-center gap-2 cursor-pointer" onclick="copyWhatsApp()">
+                    <i class="fab fa-whatsapp text-green-400"></i>
+                    <span>72967456</span>
+                </div>
+                
+                <button onclick="openWhatsApp()" 
+                        class="bg-gradient-to-r from-green-400 to-emerald-500 hover:from-green-500 hover:to-emerald-600 text-black font-semibold px-6 py-2.5 rounded-3xl flex items-center gap-2 shadow-lg shadow-green-500/30">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                    <span>Pedir ahora</span>
+                </button>
+                
+                <!-- Menú móvil -->
+                <button onclick="toggleMobileMenu()" class="md:hidden text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Menú móvil -->
+        <div id="mobileMenu" class="hidden md:hidden bg-[#0a0818] border-t border-white/10 px-6 py-4">
+            <a href="#inicio" onclick="toggleMobileMenu()" class="block py-3 text-lg">Inicio</a>
+            <a href="#servicios" onclick="toggleMobileMenu()" class="block py-3 text-lg">Servicios</a>
+            <a href="#portfolio" onclick="toggleMobileMenu()" class="block py-3 text-lg">Portafolio</a>
+            <a href="#proceso" onclick="toggleMobileMenu()" class="block py-3 text-lg">Cómo funciona</a>
+            <div class="pt-4 border-t border-white/10">
+                <button onclick="openWhatsApp()" class="w-full bg-green-500 text-black font-bold py-4 rounded-3xl flex items-center justify-center gap-3">
+                    <i class="fab fa-whatsapp text-2xl"></i>
+                    ENVIAR MENSAJE AL 72967456
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO - SECCIÓN PRINCIPAL -->
+    <section id="inicio" class="hero-bg min-h-screen flex items-center relative">
+        <!-- Canvas de partículas artísticas -->
+        <canvas id="particles" class="absolute inset-0"></canvas>
+        
+        <div class="max-w-7xl mx-auto px-6 pt-20 pb-16 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Texto hero -->
+                <div class="space-y-8">
+                    <div class="inline-flex items-center gap-2 px-6 py-2 bg-white/10 backdrop-blur-md rounded-3xl text-sm font-medium border border-purple-400/30">
+                        <span class="relative flex h-3 w-3">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                        </span>
+                        COMISIONES ABIERTAS • NUEVOS PEDIDOS BIENVENIDOS
+                    </div>
+                    
+                    <h1 class="title-font text-6xl md:text-7xl leading-none font-bold tracking-[-2px]">
+                        Tu idea,<br>
+                        <span class="draw-text text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-violet-400">mi pincel digital</span>
+                    </h1>
+                    
+                    <p class="text-2xl text-purple-100 max-w-lg">
+                        Dibujos artísticos digitales únicos.<br>
+                        Ilustraciones, retratos, fanarts y más.<br>
+                        <span class="font-semibold text-emerald-300">¡Comisiones abiertas ahora!</span>
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="openWhatsApp()" 
+                                class="wa-float group bg-gradient-to-r from-green-400 to-emerald-500 text-black text-xl font-bold px-10 py-6 rounded-3xl flex items-center gap-4 hover:shadow-2xl hover:shadow-emerald-500/40">
+                            <i class="fab fa-whatsapp text-4xl group-active:scale-110"></i>
+                            <div>
+                                <span class="block">Pedir por WhatsApp</span>
+                                <span class="text-sm font-medium opacity-75">+591 72967456</span>
+                            </div>
+                        </button>
+                        
+                        <a href="#portfolio" 
+                           class="flex items-center gap-3 border border-white/30 hover:border-purple-400 px-8 py-6 rounded-3xl text-lg font-medium">
+                            Ver ejemplos
+                            <i class="fas fa-arrow-down animate-bounce"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="flex items-center gap-8 text-sm">
+                        <div class="flex -space-x-4">
+                            <img src="https://picsum.photos/id/29/32/32" alt="" class="w-8 h-8 rounded-2xl ring-2 ring-[#0a0818] object-cover">
+                            <img src="https://picsum.photos/id/1015/32/32" alt="" class="w-8 h-8 rounded-2xl ring-2 ring-[#0a0818] object-cover">
+                            <img src="https://picsum.photos/id/160/32/32" alt="" class="w-8 h-8 rounded-2xl ring-2 ring-[#0a0818] object-cover">
+                        </div>
+                        <p class="text-purple-200">+87 dibujos entregados este mes</p>
+                    </div>
+                </div>
+                
+                <!-- Visual hero con imagen real -->
+                <div class="relative">
+                    <div class="absolute -inset-10 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-[4rem] rotate-6"></div>
+                    <div class="bg-[#1a1433] border border-purple-400/30 rounded-3xl p-6 shadow-2xl relative">
+                        <!-- Marco de dibujo con imagen real -->
+                        <div class="aspect-square bg-[#0f0a22] rounded-2xl overflow-hidden border-8 border-white/10 flex items-center justify-center relative">
+                            <img src="https://picsum.photos/id/1011/520/520" 
+                                 alt="Dibujando tu sueño - artista digital"
+                                 class="real-image w-full h-full object-cover">
+                            
+                            <div class="absolute inset-0 flex items-center justify-center bg-black/40">
+                                <p class="title-font text-4xl text-white text-center px-6">Dibujando tu sueño...</p>
+                            </div>
+                            
+                            <div class="mt-8 absolute bottom-8 left-1/2 h-2 w-48 -translate-x-1/2 bg-gradient-to-r from-transparent via-purple-400 to-transparent rounded-full animate-pulse"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 flex flex-col items-center gap-2 text-purple-300 text-sm">
+            <span>Desliza para ver más</span>
+            <i class="fas fa-chevron-down animate-bounce text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios" class="py-24 bg-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="px-4 py-1 bg-purple-500/10 text-purple-300 rounded-full text-sm">¿Qué dibujo necesitas?</span>
+                <h2 class="title-font text-5xl mt-4 font-bold">Estilos y servicios abiertos</h2>
+                <p class="mt-4 text-xl text-purple-100 max-w-md mx-auto">Todo tipo de arte digital. Personalizado 100% para ti.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="art-card bg-[#1a1433] p-8 rounded-3xl border border-white/10 hover:border-purple-400 group">
+                    <div class="text-6xl mb-6">👤</div>
+                    <h3 class="text-3xl font-semibold mb-3">Retrato personalizado</h3>
+                    <p class="text-purple-100">De ti, de tu mascota, de tu personaje favorito o de quien quieras. Estilo realista o anime.</p>
+                    <div class="mt-8 flex items-center justify-between text-sm">
+                        <span class="text-emerald-400 font-medium">Desde 25 Bs</span>
+                        <span class="group-hover:text-purple-400 flex items-center">Ver ejemplos <i class="ml-2 fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="art-card bg-[#1a1433] p-8 rounded-3xl border border-white/10 hover:border-purple-400 group">
+                    <div class="text-6xl mb-6">⚔️</div>
+                    <h3 class="text-3xl font-semibold mb-3">Fanart &amp; personajes</h3>
+                    <p class="text-purple-100">Tus personajes de anime, videojuegos, libros o series. ¡Con todo el detalle que merecen!</p>
+                    <div class="mt-8 flex items-center justify-between text-sm">
+                        <span class="text-emerald-400 font-medium">Desde 35 Bs</span>
+                        <span class="group-hover:text-purple-400 flex items-center">Ver ejemplos <i class="ml-2 fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="art-card bg-[#1a1433] p-8 rounded-3xl border border-white/10 hover:border-purple-400 group">
+                    <div class="text-6xl mb-6">🌌</div>
+                    <h3 class="text-3xl font-semibold mb-3">Ilustración fantástica</h3>
+                    <p class="text-purple-100">Escenas épicas, paisajes mágicos, arte conceptual o lo que tu imaginación pida.</p>
+                    <div class="mt-8 flex items-center justify-between text-sm">
+                        <span class="text-emerald-400 font-medium">Desde 45 Bs</span>
+                        <span class="group-hover:text-purple-400 flex items-center">Ver ejemplos <i class="ml-2 fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <p class="text-purple-300 italic">¿Algo diferente? ¡Dímelo! Siempre acepto ideas nuevas y locas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <span class="text-pink-400 font-medium">Galería reciente</span>
+                    <h2 class="title-font text-5xl font-bold">Algunos de mis últimos dibujos</h2>
+                </div>
+                <a onclick="openWhatsApp()" class="flex items-center text-purple-400 hover:text-purple-300 font-medium">
+                    ¿Quieres uno igual? Escríbeme 
+                    <i class="ml-3 fas fa-whatsapp text-3xl"></i>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Imagen 1 -->
+                <div class="art-card group relative overflow-hidden rounded-3xl aspect-square border border-white/10">
+                    <img src="https://w0.peakpx.com/wallpaper/282/656/HD-wallpaper-fire-night-fairy-art-moon-wings-girl-digital.jpg" 
+                         alt="Hada del bosque nocturno" 
+                         class="w-full h-full object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent h-1/3 flex items-end p-6">
+                        <div>
+                            <p class="font-semibold">Hada del bosque</p>
+                            <p class="text-xs text-purple-200">Estilo anime • 4K • 2026</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Imagen 2 -->
+                <div class="art-card group relative overflow-hidden rounded-3xl aspect-square border border-white/10">
+                    <img src="https://www.clipstudio.net/wp-content/uploads/2019/11/0051_001.jpg" 
+                         alt="Dragón cristalino" 
+                         class="w-full h-full object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent h-1/3 flex items-end p-6">
+                        <div>
+                            <p class="font-semibold">Dragón</p>
+                            <p class="text-xs text-purple-200">Estilo fantástico • Cliente especial</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Imagen 3 -->
+                <div class="art-card group relative overflow-hidden rounded-3xl aspect-square border border-white/10">
+                    <img src="https://i.pinimg.com/originals/97/88/cb/9788cb3a48e70a8cdd6adfbc45b419bb.png" 
+                         alt="Elfa guerrera" 
+                         class="w-full h-full object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent h-1/3 flex items-end p-6">
+                        <div>
+                            <p class="font-semibold">Elfa guerrera</p>
+                            <p class="text-xs text-purple-200">Retrato detallado • 8K</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Imagen 4 -->
+                <div class="art-card group relative overflow-hidden rounded-3xl aspect-square border border-white/10">
+                    <img src="https://st3.depositphotos.com/3584689/18520/i/450/depositphotos_185209912-stock-illustration-man-standing-balcony-looking-futuristic.jpg" 
+                         alt="Ciudad futurista al atardecer" 
+                         class="w-full h-full object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent h-1/3 flex items-end p-6">
+                        <div>
+                            <p class="font-semibold">Ciudad futurista</p>
+                            <p class="text-xs text-purple-200">Arte conceptual</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10 text-purple-300 text-sm flex items-center justify-center gap-2">
+                <i class="fas fa-infinity"></i>
+                Y muchos más… ¡El próximo puede ser el tuyo!
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section id="proceso" class="py-24 bg-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-5">
+                    <h2 class="title-font text-5xl font-bold leading-tight">Cómo se crea tu dibujo</h2>
+                    <p class="mt-6 text-xl text-purple-100">Simple, transparente y lleno de magia digital.</p>
+                    
+                    <div class="mt-12 space-y-8">
+                        <div class="flex gap-6">
+                            <div class="flex-shrink-0 w-12 h-12 bg-purple-500 text-white rounded-2xl flex items-center justify-center font-bold text-2xl">1</div>
+                            <div>
+                                <h4 class="font-semibold text-2xl">Me cuentas tu idea</h4>
+                                <p class="text-purple-100">Por WhatsApp. Referencias, colores, estilo… todo lo que imagines.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="flex-shrink-0 w-12 h-12 bg-purple-500 text-white rounded-2xl flex items-center justify-center font-bold text-2xl">2</div>
+                            <div>
+                                <h4 class="font-semibold text-2xl">Te mando boceto</h4>
+                                <p class="text-purple-100">En 24-48h. Revisas y pedimos cambios sin costo.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="flex-shrink-0 w-12 h-12 bg-purple-500 text-white rounded-2xl flex items-center justify-center font-bold text-2xl">3</div>
+                            <div>
+                                <h4 class="font-semibold text-2xl">¡Dibujo final!</h4>
+                                <p class="text-purple-100">Archivo en alta calidad + versiones extras. Entrega en 3-7 días.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-7">
+                    <div class="bg-[#1a1433] rounded-3xl p-10 border border-purple-400/20">
+                        <div class="flex justify-center">
+                            <div class="w-80 h-80 border-8 border-dashed border-purple-400/30 rounded-3xl flex items-center justify-center relative overflow-hidden">
+                                <img src="https://img.freepik.com/vector-gratis/estrellas-colores-sobre-fondo-blanco_1110-524.jpg?semt=ais_incoming&w=740&q=80" 
+                                     alt="Tu obra maestra" 
+                                     class="real-image w-full h-full object-cover">
+                                <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-transparent via-black/60 to-black/90">
+                                    <div class="text-center">
+                                        <p class="title-font text-4xl text-white">Tu obra maestra</p>
+                                        <div class="flex justify-center gap-4 mt-10">
+                                            <div class="px-6 py-2 bg-white/10 rounded-3xl text-xs flex items-center">JPG 8K</div>
+                                            <div class="px-6 py-2 bg-white/10 rounded-3xl text-xs flex items-center">PNG transparente</div>
+                                            <div class="px-6 py-2 bg-white/10 rounded-3xl text-xs flex items-center">Versión animada opcional</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS + CTA FINAL -->
+    <section class="py-24">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="max-w-xl mx-auto">
+                <i class="fas fa-quote-left text-7xl text-purple-400/30 mb-8"></i>
+                <p class="text-3xl italic">"El dibujo superó todas mis expectativas. El proceso fue súper fluido y el resultado es una obra de arte que ahora tengo en mi habitación."</p>
+                <div class="mt-8 flex justify-center items-center gap-3">
+                    <div class="text-xl font-medium">@LunaDraws</div>
+                    <div class="text-emerald-400">• Cliente feliz</div>
+                </div>
+            </div>
+            
+            <!-- CTA grande -->
+            <div class="mt-20 bg-gradient-to-br from-purple-600/80 to-pink-600/80 rounded-[3rem] p-16 max-w-4xl mx-auto">
+                <h2 class="title-font text-5xl mb-4">¿Listo para tu propio dibujo?</h2>
+                <p class="text-2xl mb-8">Comisiones abiertas todo el mes. ¡No esperes más!</p>
+                
+                <button onclick="openWhatsApp()" 
+                        class="wa-float text-2xl bg-black hover:bg-white text-white hover:text-black font-bold px-14 py-7 rounded-3xl inline-flex items-center gap-4 shadow-2xl">
+                    <i class="fab fa-whatsapp text-4xl"></i>
+                    ENVIAR MENSAJE AL 72967456
+                    <span class="text-emerald-400 text-sm font-normal">(respondo en minutos)</span>
+                </button>
+                
+                <p class="mt-8 text-white/80 text-sm">O simplemente dime “Hola, quiero una comisión” y empezamos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-3">
+                    <!-- Logo footer con imagen real -->
+                    <img src="https://picsum.photos/id/29/60/60" alt="PincelDigital" 
+                         class="w-10 h-10 rounded-2xl object-cover">
+                    <div>
+                        <span class="title-font text-3xl">PincelDigital</span>
+                        <p class="text-xs text-purple-300">Arte digital • Comisiones abiertas</p>
+                    </div>
+                </div>
+                
+                <div class="text-center md:text-left">
+                    <p class="text-sm">Número de WhatsApp para pedidos:</p>
+                    <a href="https://wa.me/72967456" target="_blank" 
+                       class="text-4xl font-bold text-green-400 flex items-center justify-center md:justify-start gap-3 hover:scale-110">
+                        <i class="fab fa-whatsapp"></i> 72967456
+                    </a>
+                </div>
+                
+                <div class="text-xs text-purple-200/70 flex flex-col items-center md:items-end">
+                    <p>© 2026 PincelDigital • Hecho con amor y muchos píxeles</p>
+                    <p class="mt-1">¡Gracias por apoyar el arte digital!</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tailwind script init
+        function initializeTailwind() {
+            tailwind.config = {
+                content: [],
+                theme: {
+                    extend: {}
+                }
+            }
+        }
+        
+        // Canvas partículas artísticas
+        function createParticles() {
+            const canvas = document.getElementById('particles')
+            const ctx = canvas.getContext('2d')
+            
+            function resize() {
+                canvas.width = window.innerWidth
+                canvas.height = window.innerHeight
+            }
+            window.addEventListener('resize', resize)
+            resize()
+            
+            let particles = []
+            
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width
+                    this.y = Math.random() * canvas.height
+                    this.size = Math.random() * 4 + 1
+                    this.speedX = Math.random() * 0.8 - 0.4
+                    this.speedY = Math.random() * 0.8 - 0.4
+                    this.hue = Math.random() * 60 + 260 // tonos púrpura-rosa
+                }
+                
+                update() {
+                    this.x += this.speedX
+                    this.y += this.speedY
+                    
+                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1
+                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1
+                    
+                    this.size = Math.sin(Date.now() / 400) * 2 + 3
+                }
+                
+                draw() {
+                    ctx.fillStyle = `hsla(${this.hue}, 90%, 85%, 0.7)`
+                    ctx.beginPath()
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+                    ctx.fill()
+                    
+                    // Líneas suaves como trazos de pincel
+                    ctx.strokeStyle = `hsla(${this.hue}, 90%, 75%, 0.3)`
+                    ctx.lineWidth = 0.8
+                    ctx.beginPath()
+                    ctx.moveTo(this.x - 12, this.y)
+                    ctx.lineTo(this.x + 12, this.y)
+                    ctx.stroke()
+                }
+            }
+            
+            function initParticles() {
+                particles = []
+                for (let i = 0; i < 120; i++) {
+                    particles.push(new Particle())
+                }
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height)
+                
+                particles.forEach(p => {
+                    p.update()
+                    p.draw()
+                })
+                
+                // Conexiones suaves entre partículas cercanas
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x
+                        const dy = particles[i].y - particles[j].y
+                        const distance = Math.sqrt(dx * dx + dy * dy)
+                        
+                        if (distance < 110) {
+                            ctx.strokeStyle = `hsla(270, 80%, 70%, ${0.15 - distance / 800})`
+                            ctx.lineWidth = 0.6
+                            ctx.beginPath()
+                            ctx.moveTo(particles[i].x, particles[i].y)
+                            ctx.lineTo(particles[j].x, particles[j].y)
+                            ctx.stroke()
+                        }
+                    }
+                }
+                
+                requestAnimationFrame(animate)
+            }
+            
+            initParticles()
+            animate()
+            
+            // Reiniciar partículas cada 12 segundos
+            setInterval(() => {
+                initParticles()
+            }, 12000)
+        }
+        
+        // Scroll reveal
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal')
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active')
+                    }
+                })
+            }, { threshold: 0.15 })
+            
+            document.querySelectorAll('section > div').forEach(el => {
+                if (!el.classList.contains('reveal')) el.classList.add('reveal')
+                observer.observe(el)
+            })
+        }
+        
+        // Abrir WhatsApp con mensaje predefinido
+        function openWhatsApp() {
+            const number = "72967456"
+            const message = encodeURIComponent("¡Hola! Vi tu página de comisiones y quiero pedir un dibujo artístico digital ✨ ¿Estás disponible?")
+            window.open(`https://wa.me/${number}?text=${message}`, "_blank")
+        }
+        
+        // Copiar número al portapapeles
+        function copyWhatsApp() {
+            navigator.clipboard.writeText("72967456").then(() => {
+                const originalText = event.currentTarget.innerHTML
+                event.currentTarget.innerHTML = `<i class="fas fa-check text-emerald-400"></i> ¡Copiado!`
+                setTimeout(() => {
+                    event.currentTarget.innerHTML = originalText
+                }, 1800)
+            })
+        }
+        
+        // Menú móvil
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu')
+            menu.classList.toggle('hidden')
+        }
+        
+        // Inicializar todo
+        window.onload = function() {
+            initializeTailwind()
+            createParticles()
+            revealOnScroll()
+            
+            console.log('%c✅ Página de comisiones PincelDigital cargada con éxito. ¡Listo para recibir pedidos!', 'color:#a855f7; font-family:monospace;')
+        }
+    </script>
+</body>
+</html>
